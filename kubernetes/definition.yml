@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: baas
+  namespace: baas
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: baas
+  template:
+    metadata:
+      labels:
+        app: baas
+    spec:
+      containers:
+        - name: app
+          image: jelkand/baas:latest
+          ports:
+            - containerPort: 3000
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: '64Mi'
+              cpu: '250m'
+            limits:
+              memory: '128Mi'
+              cpu: '500m'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: baas
+  namespace: baas
+spec:
+  selector:
+    app: baas
+  ports:
+    - port: 80
+      targetPort: 3000
+  type: LoadBalancer
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: baas-ingress
+  namespace: baas
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              serviceName: baas
+              servicePort: 80
+            path: /sort-integers

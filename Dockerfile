@@ -12,14 +12,15 @@ RUN yarn build
 ENTRYPOINT [ "docker-entrypoint.sh" ]
 CMD yarn start:dev
 
-FROM node:12.8.0-alpine as ci
+# FROM node:12.8.0-alpine as prod
 
-WORKDIR /usr/src/app
+# WORKDIR /usr/src/app
 
-COPY --from=dev /usr/src/app/dist ./dist
-COPY --from=dev /usr/src/app/package.json .
+# RUN yarn --prod
 
-RUN yarn --prod
+# COPY . .
 
-ENTRYPOINT [ "docker-entrypoint.sh" ]
-CMD yarn start:ci
+# RUN yarn build
+
+# ENTRYPOINT [ "docker-entrypoint.sh" ]
+# CMD yarn start:ci
