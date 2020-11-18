@@ -51,7 +51,7 @@ server.post(
 
 server.listen(3000, '0.0.0.0', err => {
   if (err) {
-    server.log.error(err)
+    server.log.error(err.message)
     process.exit(1)
   }
 
