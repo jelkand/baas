@@ -41,4 +41,4 @@ jobs:
           file: ./Dockerfile
           platforms: linux/386,linux/amd64,linux/arm/v7,linux/arm64
           push: true
-          tags: jelkand/baas:latest${{ env.GITHUB_SHA }}
+          tags: jelkand/baas:${{ env.GITHUB_SHA }}
